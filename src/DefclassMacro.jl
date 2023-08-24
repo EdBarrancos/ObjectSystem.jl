@@ -1,3 +1,5 @@
+export @defclass
+
 macro defclass(name, superclasses, slots, options...)
     target_name = QuoteNode(name)
     
@@ -54,13 +56,14 @@ macro defclass(name, superclasses, slots, options...)
             $name = BaseStructure(
                 $metaclass,
                 Dict(
-                    :name = $target_name,
-                    :direct_superclasses = length($superclasses) > 0 ? $superclasses : [Object],
-                    :direct_slots = $direct_slots_definition,
-                    :class_precedence_list = length($superclasses) > 0 ? $superclasses : [Object], # TODO: Compute class_precedence_list
-                    :slots = $direct_slots_definition #TODO: Compute slots
+                    :name => $target_name,
+                    :direct_superclasses => length($superclasses) > 0 ? $superclasses : [Object],
+                    :direct_slots => $direct_slots_definition,
+                    :class_precedence_list => length($superclasses) > 0 ? $superclasses : [Object], # TODO: Compute class_precedence_list
+                    :slots => $direct_slots_definition #TODO: Compute slots
                 )
             )
+            pushfirst!(getfield($name, :slots)[:class_precedence_list], $name)
             $name
         end
     )

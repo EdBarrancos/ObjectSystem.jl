@@ -81,3 +81,7 @@ pushfirst!(getfield(Class, :slots)[:class_precedence_list], Class)
 setfield!(Class, :class_of_reference, Class)
 setfield!(Object, :class_of_reference, Class)
 setfield!(Top, :class_of_reference, Class)
+
+function Base.getproperty(obj::BaseStructure, sym::Symbol)
+    getfield(obj, :slots)[sym]
+end
