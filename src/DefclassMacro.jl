@@ -18,28 +18,28 @@ macro defclass(name, superclasses, slots, options...)
                     # name of the slot
                     setfield!(new_slot, :name, option)
                 elseif option.head == :(=)
-                    if option.args[begin] == :reader
+                    if option.args[1] == :reader
                         # TODO
-                    elseif option.args[begin] == :writer
+                    elseif option.args[1] == :writer
                         # TODO
-                    elseif option.args[begin] == :initform
+                    elseif option.args[1] == :initform
                         setfield!(new_slot, :initform, option.args[end])
                     else
-                        new_slot = Slot(option.args[begin], option.args[end])
+                        new_slot = Slot(option.args[1], option.args[end])
                     end
                 end
             end
 
             push!(direct_slots_definition, new_slot)
         elseif slot.head == :(=)
-            push!(direct_slots_definition, Slot(slot.args[begin], slot.args[end]))
+            push!(direct_slots_definition, Slot(slot.args[1], slot.args[end]))
         end
     end
 
     metaclass = Class
     for option in options
         if typeof(option) == Expr && option.head == :(=)
-            if option.args[begin] == :metaclass
+            if option.args[1] == :metaclass
                 metaclass = option.args[end]
             else
                 error("Unrecognized option")
