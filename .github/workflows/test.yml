@@ -18,21 +18,28 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        julia-version: ['1.0', '1', 'nightly']
-        julia-arch: [x64, x86]
+        version: 
+          - "1.0" # LTS
+          - "1"   # Latest Release
+        arch: 
+          - x64
+          - x86
         os: [ubuntu-latest, macOS-latest, windows-latest]
         exclude:
+          # Test 32-bit only on Linux
           - os: macOS-latest
-            julia-arch: x86
+            arch: x86
+          - os: windows-latest
+            arch: x86
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: julia-actions/setup-julia@v1
         with:
-          version: ${{ matrix.julia-version }}
-          arch: ${{ matrix.julia-arch }}
-      - uses: julia-actions/julia-buildpkg@v1
-      - uses: julia-actions/julia-runtest@v1
+          version: ${{ matrix.version }}
+          arch: ${{ matrix.arch }}
+      - uses: julia-actions/julia-buildpkg@latest
+      - uses: julia-actions/julia-runtest@latest
         with:
           annotate: true
 

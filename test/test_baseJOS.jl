@@ -1,3 +1,4 @@
+using JuliaObjectSystem
 using Test
 
 @testset "Test Top, Object and Class" begin

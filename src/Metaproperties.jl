@@ -1,5 +1,4 @@
-export class_of, assert_subclass_of,
-    class_name, class_direct_slots, class_slots, class_direct_superclasses, class_cpl
+export class_of, assert_subclass_of, class_name, class_direct_slots, class_slots, class_direct_superclasses, class_cpl
 
 class_of(instance::BaseStructure) = begin
     getfield(instance, :class_of_reference)
