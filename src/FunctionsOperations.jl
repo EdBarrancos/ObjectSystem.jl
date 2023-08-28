@@ -3,7 +3,7 @@ export create_method
 function (f::BaseStructure)(x...)
     check_for_polymorph(f, GenericFunction, ArgumentError)
 
-    if length(x) != length(getproperty(f, :slots)[:lambda_list])
+    if length(x) != length(getfield(f, :slots)[:lambda_list])
         non_applicable_method(f, x)
     end
 
@@ -35,7 +35,7 @@ function apply_method(
     let 
         call_next_method = () -> apply_methods(generic_function, methods, target_method_index + 1, args)
         
-        return get_property(method, :slots)[:procedure](call_next_method, args...)
+        return getfield(method, :slots)[:procedure](call_next_method, args...)
     end
 end
 
@@ -92,8 +92,8 @@ function create_method(
     check_for_polymorph(new_method, MultiMethod, ArgumentError)
 
     if !isequal(
-        length(parent_generic_function.lambda_list),
-        length(new_method.specializers))
+        length(getfield(parent_generic_function, :slots)[:lambda_list]),
+        length(getfield(new_method, :slots)[:specializers]))
 
         error("Method does not correspond to generic function's signature")
     end
@@ -112,7 +112,7 @@ end
 function non_applicable_method(generic_function::BaseStructure, args)
     error(
         "No applicable method for function ",
-        get_property(generic_function, :slots)[:name],
+        getfield(generic_function, :slots)[:name],
         " with arguments ",
         string(args))
 end
