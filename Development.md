@@ -13,7 +13,7 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] 2.1 Classes
 - [ ] 2.2 Instances
 - [ ] 2.3 Slot Access
-- [ ] 2.4 Generic Functions and methods
+- [x] 2.4 Generic Functions and methods
 - [ ] 2.5 Pre-defined Generic Functions and Methods
 - [ ] 2.6 MetaObjects
 - [ ] 2.7 Class Options
@@ -39,3 +39,4 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] Make `check_polymorphism` and `check_class` a JOS method
 - [ ] Make `is_class`
 - [ ] Make `non-applicable-method` predefined
+- [ ] If generic function does not exist when method created, auto generate it
