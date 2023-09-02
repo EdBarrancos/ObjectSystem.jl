@@ -40,7 +40,7 @@ function apply_method(
 end
 
 function is_method_applicable(method::BaseStructure, x) 
-    for i in range(1, length(x), step=1)
+    for i in 1:1:length(x)
         if !any(
                 (class) -> class === method.specializers[i],
                 class_of(x[i]).class_precedence_list)
@@ -52,7 +52,7 @@ function is_method_applicable(method::BaseStructure, x)
 end
 
 function is_method_more_specific(method1::BaseStructure, method2::BaseStructure, lambda)
-    for i in range(1, length(lambda), step=1)
+    for i in 1:1:length(lambda)
         index_spec1 = findfirst(
             (class) -> class === method1.specializers[i],
             class_of(lambda[i]).class_precedence_list)
