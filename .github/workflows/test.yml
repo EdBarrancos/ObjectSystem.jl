@@ -19,7 +19,6 @@ jobs:
     strategy:
       matrix:
         version: 
-          - "1.0" # LTS
           - "1"   # Latest Release
         arch: 
           - x64
