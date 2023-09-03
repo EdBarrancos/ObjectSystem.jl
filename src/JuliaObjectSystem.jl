@@ -2,7 +2,7 @@ module JuliaObjectSystem
     include("BaseJOS.jl")
     include("Metaproperties.jl")
     include("FunctionDefinitions.jl")
-    include("DefclassMacro.jl") #Possible called macros?
+    include("Macros.jl")
     include("InheritanceAndPolimorphismOperators.jl")
     include("FunctionsOperations.jl")
 end # module

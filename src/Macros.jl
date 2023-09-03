@@ -1,4 +1,36 @@
-export @defclass
+export @defclass, @defgeneric
+
+macro defgeneric(function_call)
+    if typeof(function_call) != Expr
+        error("Invalid syntax for defining generic function. Example: @defgeneric print_object(obj, io)")
+    end
+
+    if function_call.head != :call
+        error("Invalid syntax for defining generic function. Example: @defgeneric print_object(obj, io)")
+    end
+    
+    target_name = QuoteNode(function_call.args[begin])
+
+    lambda_list = []
+    if typeof(function_call.args[end]) == Expr && function_call.args[end].head == :(...)
+        lambda_list = [lambda for lambda in function_call.args[end].args[begin]]
+    else
+        lambda_list = [lambda for lambda in function_call.args[2:end]]
+    end
+
+    return esc(
+        quote
+            $(function_call.args[begin]) = BaseStructure(
+                GenericFunction,
+                Dict(
+                    :name=>$target_name,
+                    :lambda_list=>$(lambda_list),
+                    :methods=>[]
+                )
+            )
+        end
+    )
+end
 
 macro defclass(name, superclasses, slots, options...)
     target_name = QuoteNode(name)
@@ -18,21 +50,21 @@ macro defclass(name, superclasses, slots, options...)
                     # name of the slot
                     setfield!(new_slot, :name, option)
                 elseif option.head == :(=)
-                    if option.args[1] == :reader
+                    if option.args[begin] == :reader
                         # TODO
-                    elseif option.args[1] == :writer
+                    elseif option.args[begin] == :writer
                         # TODO
-                    elseif option.args[1] == :initform
+                    elseif option.args[begin] == :initform
                         setfield!(new_slot, :initform, option.args[end])
                     else
-                        new_slot = Slot(option.args[1], option.args[end])
+                        new_slot = Slot(option.args[begin], option.args[end])
                     end
                 end
             end
 
             push!(direct_slots_definition, new_slot)
         elseif slot.head == :(=)
-            push!(direct_slots_definition, Slot(slot.args[1], slot.args[end]))
+            push!(direct_slots_definition, Slot(slot.args[begin], slot.args[end]))
         end
     end
 

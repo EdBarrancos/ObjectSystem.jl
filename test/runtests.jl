@@ -5,4 +5,5 @@ using Test
     include("test_baseJOS.jl")
     include("test_defclass.jl")
     include("test_generic_methods.jl")
+    include("test_defgeneric.jl")
 end
