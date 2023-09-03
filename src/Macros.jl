@@ -1,4 +1,4 @@
-export @defclass
+export @defclass, @defgeneric
 
 macro defgeneric(function_call)
     if typeof(function_call) != Expr
