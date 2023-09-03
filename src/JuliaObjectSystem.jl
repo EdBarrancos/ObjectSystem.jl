@@ -4,6 +4,7 @@ module JuliaObjectSystem
     include("FunctionDefinitions.jl")
     include("FunctionMacros.jl")
     include("ClassMacros.jl")
+    include("BuiltInTypes.jl")
     include("InheritanceAndPolimorphismOperators.jl")
     include("FunctionsOperations.jl")
 end # module
