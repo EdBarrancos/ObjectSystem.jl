@@ -37,6 +37,6 @@ A Document to register features that I still need to implement, plus, if I need 
   - [ ] 2.18.3 CLOS or Dylan's strategy for computing the class precedence list
   - [ ] 2.18.4 Additional Metaobject protocols
 - [x] Make `check_polymorphism` and `check_class` a JOS method
-- [ ] Make `is_class`
+- [x] Make `is_class`
 - [ ] Make `non-applicable-method` predefined
 - [x] If generic function does not exist when method created, auto generate it

@@ -84,10 +84,3 @@ function compute_effective_method(f::BaseStructure, x)
     return sort(applicable_methods, lt=(method1, method2) -> is_method_more_specific(method1, method2, x))
 end
 
-function non_applicable_method(generic_function::BaseStructure, args)
-    error(
-        "No applicable method for function ",
-        getfield(generic_function, :slots)[:name],
-        " with arguments ",
-        string(args))
-end
