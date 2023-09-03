@@ -19,3 +19,4 @@ macro defbuiltin(typeDefinition)
 end
 
 @defbuiltin _Exception(Exception)
+@defbuiltin _TypeException(Type{Exception})

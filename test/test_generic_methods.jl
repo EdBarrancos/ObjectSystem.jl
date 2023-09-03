@@ -155,4 +155,8 @@ end
     )
 
     @test simple_generic(SimpleClass_instance) == 2
+    check_class(SimpleClass_instance, SimpleClass, Exception) #Shouldn't throw exception
+    @test_throws Exception check_class(SimpleClass_instance, Object)
+    check_polymorph(SimpleClass_instance, Object, Exception)
+    @test is_class(SimpleClass_instance, SimpleClass)
 end
