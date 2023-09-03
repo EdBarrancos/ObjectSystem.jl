@@ -1,36 +1,4 @@
-export @defclass, @defgeneric
-
-macro defgeneric(function_call)
-    if typeof(function_call) != Expr
-        error("Invalid syntax for defining generic function. Example: @defgeneric print_object(obj, io)")
-    end
-
-    if function_call.head != :call
-        error("Invalid syntax for defining generic function. Example: @defgeneric print_object(obj, io)")
-    end
-    
-    target_name = QuoteNode(function_call.args[begin])
-
-    lambda_list = []
-    if typeof(function_call.args[end]) == Expr && function_call.args[end].head == :(...)
-        lambda_list = [lambda for lambda in function_call.args[end].args[begin]]
-    else
-        lambda_list = [lambda for lambda in function_call.args[2:end]]
-    end
-
-    return esc(
-        quote
-            $(function_call.args[begin]) = BaseStructure(
-                GenericFunction,
-                Dict(
-                    :name=>$target_name,
-                    :lambda_list=>$(lambda_list),
-                    :methods=>[]
-                )
-            )
-        end
-    )
-end
+export @defclass
 
 macro defclass(name, superclasses, slots, options...)
     target_name = QuoteNode(name)

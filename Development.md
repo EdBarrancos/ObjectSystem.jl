@@ -7,8 +7,8 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] 2.0 Macros
   - [x] 2.0.1 defclass [Not complete yet]
     - [ ] 2.0.1 Complete defclass
-  - [ ] 2.0.2 defgeneric
-  - [ ] 2.0.3 defmethod
+  - [x] 2.0.2 defgeneric
+  - [x] 2.0.3 defmethod
   - [ ] 2.0.4 defbuiltin
 - [x] 2.1 Classes
 - [ ] 2.2 Instances
@@ -39,4 +39,4 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] Make `check_polymorphism` and `check_class` a JOS method
 - [ ] Make `is_class`
 - [ ] Make `non-applicable-method` predefined
-- [ ] If generic function does not exist when method created, auto generate it
+- [x] If generic function does not exist when method created, auto generate it
