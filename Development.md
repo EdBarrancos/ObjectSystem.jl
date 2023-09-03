@@ -10,7 +10,7 @@ A Document to register features that I still need to implement, plus, if I need 
   - [ ] 2.0.2 defgeneric
   - [ ] 2.0.3 defmethod
   - [ ] 2.0.4 defbuiltin
-- [ ] 2.1 Classes
+- [x] 2.1 Classes
 - [ ] 2.2 Instances
 - [ ] 2.3 Slot Access
 - [x] 2.4 Generic Functions and methods
