@@ -84,41 +84,10 @@ function compute_effective_method(f::BaseStructure, x)
     return sort(applicable_methods, lt=(method1, method2) -> is_method_more_specific(method1, method2, x))
 end
 
-function create_method(
-    parent_generic_function::BaseStructure, 
-    new_method::BaseStructure)
-
-    check_for_polymorph(parent_generic_function, GenericFunction, ArgumentError)
-    check_for_polymorph(new_method, MultiMethod, ArgumentError)
-
-    if !isequal(
-        length(getfield(parent_generic_function, :slots)[:lambda_list]),
-        length(getfield(new_method, :slots)[:specializers]))
-
-        error("Method does not correspond to generic function's signature")
-    end
-    
-    #= override =#
-    filter!(
-        (method) -> 
-            !(isequal(
-                new_method.specializers,
-                method.specializers)),
-        parent_generic_function.methods)
-        
-    pushfirst!(parent_generic_function.methods, new_method)
-end
-
 function non_applicable_method(generic_function::BaseStructure, args)
     error(
         "No applicable method for function ",
         getfield(generic_function, :slots)[:name],
         " with arguments ",
         string(args))
-end
-
-check_for_polymorph(instance::BaseStructure, targetClass::BaseStructure, exception) = begin
-    if !(targetClass in class_of(instance).class_precedence_list)
-        throw(exception("Given '" * String(targetClass.name) * "' is not a " * String(targetClass.name)))
-    end
 end
