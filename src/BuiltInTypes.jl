@@ -17,3 +17,5 @@ macro defbuiltin(typeDefinition)
         $(typeDefinition.args[begin])
     end)
 end
+
+@defbuiltin _Exception(Exception)

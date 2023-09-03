@@ -1,6 +1,6 @@
-export check_class, check_for_polymorph
+export check_class, check_polymorph
 
-check_for_polymorph(instance::BaseStructure, targetClass::BaseStructure, exception) = begin
+@defmethod check_polymorph(instance::Object, targetClass::Class, exception::_Exception) = begin
     if !(targetClass in class_of(instance).class_precedence_list)
         throw(exception("Given '" * String(targetClass.name) * "' is not a " * String(targetClass.name)))
     end
