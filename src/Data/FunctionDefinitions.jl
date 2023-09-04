@@ -1,4 +1,4 @@
-export GenericFunction, MultiMethod
+export GenericFunction, MultiMethod, create_method
 
 GenericFunction = BaseStructure(
     Class,

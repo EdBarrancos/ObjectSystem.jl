@@ -14,13 +14,12 @@ non_applicable_method_method = BaseStructure(
     Dict(
         :specializers=>[GenericFunction, Top],
         :procedure=>(call_next_method, generic_function, args) -> begin
-            println("LOOK AT ME")
             error(
                 "No applicable method for function ",
                 getfield(generic_function, :slots)[:name],
                 " with arguments ",
                 string(args))
-        end
+        end,
         :generic_function=>non_applicable_method
     )
 )

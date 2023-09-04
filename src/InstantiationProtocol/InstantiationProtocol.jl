@@ -18,7 +18,7 @@ allocate_instance_method = BaseStructure(
                 class,
                 Dict()
             )
-        end
+        end,
         :generic_function=>allocate_instance
     )
 )
@@ -49,7 +49,7 @@ initialize_method_object = BaseStructure(
         
                 getfield(object, :slots)[slot.name] = target_value
             end
-        end
+        end,
         :generic_function=>initialize
     )
 )

@@ -62,14 +62,16 @@ Class = BaseStructure(
             SlotDefinition(:name, missing), 
             SlotDefinition(:direct_superclasses, []), 
             SlotDefinition(:class_precedence_list, []), 
-            SlotDefinition(:slots, []), 
+            SlotDefinition(:direct_slots, []),
+            SlotDefinition(:slots, [])
         ],
         :class_precedence_list=>[Object, Top],
         :slots=>[
             SlotDefinition(:name, missing), 
             SlotDefinition(:direct_superclasses, []), 
             SlotDefinition(:class_precedence_list, []), 
-            SlotDefinition(:slots, []), 
+            SlotDefinition(:direct_slots, []),
+            SlotDefinition(:slots, [])
         ]
     )
 )
@@ -91,7 +93,8 @@ BuiltInClass = BaseStructure(
             SlotDefinition(:name, missing), 
             SlotDefinition(:direct_superclasses, []), 
             SlotDefinition(:class_precedence_list, []), 
-            SlotDefinition(:slots, []), 
+            SlotDefinition(:direct_slots, []),
+            SlotDefinition(:slots, [])
         ]
     )
 )

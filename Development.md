@@ -19,17 +19,17 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] 2.8 Readers and Writers
 - [ ] 2.9 Generic Function Calls
 - [ ] 2.10 Multiple Dispatch
-- [ ] 2.11 Multiple Inheritance - Juliana Testes
+- [ ] 2.11 Multiple Inheritance
 - [ ] 2.12 Class Hierarchy
 - [ ] 2.13 Class Precedence List
 - [ ] 2.14 Built-In Classes
 - [ ] 2.15 Introspection
 - [ ] 2.16 Meta-Object Protocols
-- [ ] 2.16.1 Class Instantiation Protocol - Juliana
+- [x] 2.16.1 Class Instantiation Protocol
 - [ ] 2.16.2 The Compute Slots Protocol
 - [ ] 2.16.3 Slot Access Protocol
 - [ ] 2.16.4 Class Precedence List protocol
-- [ ] 2.17 Multiple Meta-Class Inheritance - Liliana Testes
+- [ ] 2.17 Multiple Meta-Class Inheritance
 - [ ] 2.18 Extensions
   - [ ] 2.18.1 Meta-Objects for slot definitions
   - [ ] 2.18.2 CLOS-like method combination for generic functions
@@ -41,7 +41,7 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] If generic function does not exist when method created, auto generate it
 - [ ] Compute class precedence list
 - [ ] Compute slots
-- [ ] Refactor so that defclass uses instantiation protocol
+- [x] Refactor so that defclass uses instantiation protocol
 - [ ] Refactor so that defgeneric uses instantiation protocol
 - [ ] Refactor so that defmethod uses instantiation protocol
 - [ ] Add support for unions

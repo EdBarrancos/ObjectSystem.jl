@@ -5,4 +5,3 @@ export _Exception, _TypeException, _Vector, _Pair, _Symbol
 @defbuiltin _Vector(Vector)
 @defbuiltin _Pair(Pair)
 @defbuiltin _Symbol(Symbol)
-@defbuiltin _Pairs(Base.Pairs)
