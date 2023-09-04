@@ -5,11 +5,10 @@ A Document to register features that I still need to implement, plus, if I need 
 ## What needs doing
 
 - [ ] 2.0 Macros
-  - [x] 2.0.1 defclass [Not complete yet]
-    - [ ] 2.0.1 Complete defclass
+  - [x] 2.0.1 defclass
   - [x] 2.0.2 defgeneric
   - [x] 2.0.3 defmethod
-  - [ ] 2.0.4 defbuiltin
+  - [x] 2.0.4 defbuiltin
 - [x] 2.1 Classes
 - [ ] 2.2 Instances
 - [ ] 2.3 Slot Access
@@ -40,3 +39,8 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] Make `is_class`
 - [x] Make `non-applicable-method` predefined
 - [x] If generic function does not exist when method created, auto generate it
+- [ ] Compute class precedence list
+- [ ] Compute slots
+- [ ] Refactor so that defclass uses instantiation protocol
+- [ ] Refactor so that defgeneric uses instantiation protocol
+- [ ] Refactor so that defmethod uses instantiation protocol

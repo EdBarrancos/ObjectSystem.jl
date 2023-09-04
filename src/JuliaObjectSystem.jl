@@ -3,6 +3,7 @@ module JuliaObjectSystem
     include("Metaproperties.jl")
     include("FunctionDefinitions.jl")
     include("FunctionMacros.jl")
+    include("InstantiationProtocol.jl")
     include("ClassMacros.jl")
     include("BuiltInTypes.jl")
     include("PredefinedFunctions.jl")
