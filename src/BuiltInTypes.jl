@@ -17,3 +17,8 @@ macro defbuiltin(typeDefinition)
         $(typeDefinition.args[begin])
     end)
 end
+
+@defbuiltin _Exception(Exception)
+@defbuiltin _TypeException(Type{Exception})
+@defbuiltin _Vector(Vector)
+@defbuiltin _Tuple(Tuple)
