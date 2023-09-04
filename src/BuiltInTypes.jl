@@ -22,3 +22,6 @@ end
 @defbuiltin _TypeException(Type{Exception})
 @defbuiltin _Vector(Vector)
 @defbuiltin _Tuple(Tuple)
+@defbuiltin _Pair(Pair)
+@defbuiltin _Symbol(Symbol)
+@defbuiltin _KeywordArgument(Base.Pairs)
