@@ -9,21 +9,21 @@ allocate_instance = BaseStructure(
     )
 )
 
-allocate_instance_method = BaseStructure(
-    MultiMethod,
-    Dict(
-        :specializers=>[Class],
-        :procedure=>(call_next_method, class) -> begin
-            return BaseStructure(
-                class,
-                Dict()
-            )
-        end,
-        :generic_function=>allocate_instance
-    )
-)
-
-create_method(allocate_instance, allocate_instance_method)
+create_method(
+    allocate_instance,
+    BaseStructure(
+        MultiMethod,
+        Dict(
+            :specializers=>[Class],
+            :procedure=>(call_next_method, class) -> begin
+                return BaseStructure(
+                    class,
+                    Dict()
+                )
+            end,
+            :generic_function=>allocate_instance
+        )
+    ))
 
 
 initialize = BaseStructure(
@@ -35,47 +35,65 @@ initialize = BaseStructure(
     )
 )
 
-initialize_method_object = BaseStructure(
-    MultiMethod,
-    Dict(
-        :specializers=>[Object, Top],
-        :procedure=>(call_next_method, object, initargs) -> begin
-            class_slots = class_of(object).slots
-            for slot in class_slots
-                target_value = slot.initform
-                if haskey(initargs, slot.name)
-                    target_value = initargs[slot.name]
+create_method(
+    initialize, 
+    BaseStructure(
+        MultiMethod,
+        Dict(
+            :specializers=>[Object, Top],
+            :procedure=>(call_next_method, object, initargs) -> begin
+                class_slots = class_of(object).slots
+                for slot in class_slots
+                    target_value = slot.initform
+                    if haskey(initargs, slot.name)
+                        target_value = initargs[slot.name]
+                    end
+            
+                    getfield(object, :slots)[slot.name] = target_value
                 end
-        
-                getfield(object, :slots)[slot.name] = target_value
-            end
-        end,
-        :generic_function=>initialize
-    )
-)
+            end,
+            :generic_function=>initialize
+        )
+    ))
 
-create_method(initialize, initialize_method_object)
-
-initialize_method_class = BaseStructure(
-    MultiMethod,
-    Dict(
-        :specializers=>[Class, Top],
-        :procedure=>(call_next_method, class, initargs) -> begin
-            class_slots = class_of(class).slots
-            for slot in class_slots
-                target_value = slot.initform
-                if haskey(initargs, slot.name)
-                    target_value = initargs[slot.name]
+create_method(
+    initialize, 
+    BaseStructure(
+        MultiMethod,
+        Dict(
+            :specializers=>[Class, Top],
+            :procedure=>(call_next_method, class, initargs) -> begin
+                class_slots = class_of(class).slots
+                for slot in class_slots
+                    target_value = slot.initform
+                    if haskey(initargs, slot.name)
+                        target_value = initargs[slot.name]
+                    end
+                    
+                    getfield(class, :slots)[slot.name] = target_value
                 end
-                
-                getfield(class, :slots)[slot.name] = target_value
-            end
-        end,
-        :generic_function=>initialize
-    )
-)
+            end,
+            :generic_function=>initialize
+        )
+    ))
 
-create_method(initialize, initialize_method_class)
+create_method(
+    initialize,
+    BaseStructure(
+        MultiMethod,
+        Dict(
+            :specializers=>[MultiMethod, Top],
+            :procedure=>(call_next_method, method, initargs) -> begin
+                call_next_method() # Class one
+    
+                create_method(
+                    initargs[:generic_function],
+                    method
+                )
+            end,
+            :generic_function=>initialize
+        )
+    ))
 
 new(class; initargs...) = begin
     check_for_polymorph(class, Class, ArgumentError)
