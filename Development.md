@@ -42,7 +42,7 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] Compute class precedence list
 - [ ] Compute slots
 - [x] Refactor so that defclass uses instantiation protocol
-- [ ] Refactor so that defgeneric uses instantiation protocol
-- [ ] Refactor so that defmethod uses instantiation protocol
+- [x] Refactor so that defgeneric uses instantiation protocol
+- [x] Refactor so that defmethod uses instantiation protocol
 - [ ] Add support for unions
 - [ ] Add call previous method
