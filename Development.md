@@ -10,7 +10,7 @@ A Document to register features that I still need to implement, plus, if I need 
   - [x] 2.0.3 defmethod
   - [x] 2.0.4 defbuiltin
 - [x] 2.1 Classes
-- [ ] 2.2 Instances
+- [x] 2.2 Instances
 - [ ] 2.3 Slot Access
 - [x] 2.4 Generic Functions and methods
 - [ ] 2.5 Pre-defined Generic Functions and Methods
@@ -44,3 +44,5 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] Refactor so that defclass uses instantiation protocol
 - [ ] Refactor so that defgeneric uses instantiation protocol
 - [ ] Refactor so that defmethod uses instantiation protocol
+- [ ] Add support for unions
+- [ ] Add call previous method

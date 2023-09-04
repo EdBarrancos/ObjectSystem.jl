@@ -1,5 +1,5 @@
 export BaseStructure, SlotDefinition, 
-    Top, Object, Class
+    Top, Object, Class, BuiltInClass
 
 mutable struct BaseStructure
     class_of_reference::Any #= Supposed to be another BaseStructure =#
@@ -63,7 +63,6 @@ Class = BaseStructure(
             SlotDefinition(:direct_superclasses, []), 
             SlotDefinition(:class_precedence_list, []), 
             SlotDefinition(:slots, []), 
-            SlotDefinition(:direct_subclasses, [])
         ],
         :class_precedence_list=>[Object, Top],
         :slots=>[
@@ -71,7 +70,6 @@ Class = BaseStructure(
             SlotDefinition(:direct_superclasses, []), 
             SlotDefinition(:class_precedence_list, []), 
             SlotDefinition(:slots, []), 
-            SlotDefinition(:direct_subclasses, [])
         ]
     )
 )
@@ -81,6 +79,24 @@ pushfirst!(getfield(Class, :slots)[:class_precedence_list], Class)
 setfield!(Class, :class_of_reference, Class)
 setfield!(Object, :class_of_reference, Class)
 setfield!(Top, :class_of_reference, Class)
+
+BuiltInClass = BaseStructure(
+    Class,
+    Dict(
+        :name=>:BuiltInClass,
+        :direct_superclasses=>[Class], 
+        :direct_slots=>[],
+        :class_precedence_list=>[Class],
+        :slots=>[
+            SlotDefinition(:name, missing), 
+            SlotDefinition(:direct_superclasses, []), 
+            SlotDefinition(:class_precedence_list, []), 
+            SlotDefinition(:slots, []), 
+        ]
+    )
+)
+
+pushfirst!(getfield(BuiltInClass, :slots)[:class_precedence_list], BuiltInClass)
 
 function Base.getproperty(obj::BaseStructure, sym::Symbol)
     getfield(obj, :slots)[sym]

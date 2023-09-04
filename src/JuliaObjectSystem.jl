@@ -1,12 +1,8 @@
 module JuliaObjectSystem
-    include("BaseJOS.jl")
-    include("Metaproperties.jl")
-    include("FunctionDefinitions.jl")
-    include("FunctionMacros.jl")
-    include("InstantiationProtocol.jl")
-    include("ClassMacros.jl")
+    include("./Data/DataModule.jl")
+    include("./PreMacroUsageDefinitions/PreMacroUsageDefinitionsModule.jl")
+    include("./InstantiationProtocol/InstantiationProtocolModule.jl")
+    include("./Macros/MacrosModule.jl")
+    include("FunctionCall.jl")
     include("BuiltInTypes.jl")
-    include("PredefinedFunctions.jl")
-    include("FunctionsOperations.jl")
-    include("InheritanceAndPolimorphismOperators.jl")
-end # module
+end

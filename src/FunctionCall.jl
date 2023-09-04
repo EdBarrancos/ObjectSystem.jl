@@ -1,5 +1,3 @@
-export create_method
-
 function (f::BaseStructure)(x...)
     check_for_polymorph(f, GenericFunction, ArgumentError)
 
@@ -7,7 +5,7 @@ function (f::BaseStructure)(x...)
         non_applicable_method(f, x)
     end
 
-    apply_methods(f, compute_effective_method(f, x), 1, x)
+    return apply_methods(f, compute_effective_method(f, x), 1, x)
 end
 
 function apply_methods(generic_function::BaseStructure, effective_method_list::Vector, target_method_index::Integer,args::Tuple)
@@ -18,7 +16,7 @@ function apply_methods(generic_function::BaseStructure, effective_method_list::V
     end
 
     #= Needs improvement in case of multiple calls =#
-    apply_method(target_method_index, args, effective_method_list, generic_function)
+    return apply_method(target_method_index, args, effective_method_list, generic_function)
 end
 
 function apply_method(
@@ -31,10 +29,8 @@ function apply_method(
     check_for_polymorph(methods[target_method_index], MultiMethod, ArgumentError)
 
     method = methods[target_method_index]
-    
-    let 
-        call_next_method = () -> apply_methods(generic_function, methods, target_method_index + 1, args)
-        
+
+    let call_next_method = () -> apply_methods(generic_function, methods, target_method_index + 1, args)
         return getfield(method, :slots)[:procedure](call_next_method, args...)
     end
 end

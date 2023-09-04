@@ -34,3 +34,19 @@ class_cpl(class::BaseStructure) = begin
     assert_subclass_of(class, Class, ArgumentError)
     return getfield(class, :slots)[:class_precedence_list]
 end
+
+is_class(instance::BaseStructure, targetClass::BaseStructure) = begin
+    return class_of(instance) === targetClass
+end
+
+check_polymorph(instance::BaseStructure, targetClass::BaseStructure, exception::Type{Exception}) = begin
+    if !(targetClass in class_of(instance).class_precedence_list)
+        throw(exception("Given '" * String(targetClass.name) * "' is not a " * String(targetClass.name)))
+    end
+end
+
+check_class(instance::BaseStructure, targetClass::BaseStructure, exception::Type{Exception}) = begin
+    if !is_class(instance, targetClass)
+        throw(exception("Given '" * String(targetClass.name) * "' is not a " * String(targetClass.name)))
+    end
+end
