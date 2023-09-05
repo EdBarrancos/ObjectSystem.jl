@@ -9,7 +9,7 @@ macro defclass(name, superclasses, slots, options...)
         # TODO -> Reader and writer method
         if typeof(slot) != Expr
             # Just name of the slot defined
-            push!(direct_slots_definition, Slot(slot, missing))
+            push!(direct_slots_definition, SlotDefinition(slot, missing))
         elseif slot.head == :vect
             new_slot = SlotDefinition(:missing, missing)
 
@@ -25,14 +25,14 @@ macro defclass(name, superclasses, slots, options...)
                     elseif option.args[begin] == :initform
                         setfield!(new_slot, :initform, option.args[end])
                     else
-                        new_slot = Slot(option.args[begin], option.args[end])
+                        new_slot = SlotDefinition(option.args[begin], option.args[end])
                     end
                 end
             end
 
             push!(direct_slots_definition, new_slot)
         elseif slot.head == :(=)
-            push!(direct_slots_definition, Slot(slot.args[begin], slot.args[end]))
+            push!(direct_slots_definition, SlotDefinition(slot.args[begin], slot.args[end]))
         end
     end
 
