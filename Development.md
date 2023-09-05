@@ -13,8 +13,8 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] 2.2 Instances
 - [x] 2.3 Slot Access
 - [x] 2.4 Generic Functions and methods
-- [ ] 2.5 Pre-defined Generic Functions and Methods
-- [ ] 2.6 MetaObjects
+- [x] 2.5 Pre-defined Generic Functions and Methods
+- [x] 2.6 MetaObjects
 - [ ] 2.7 Class Options
 - [ ] 2.8 Readers and Writers
 - [ ] 2.9 Generic Function Calls
