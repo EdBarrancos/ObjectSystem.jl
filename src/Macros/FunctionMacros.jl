@@ -20,13 +20,11 @@ macro defgeneric(function_call)
 
     return esc(
         quote
-            $(function_call.args[begin]) = BaseStructure(
+            $(function_call.args[begin]) = new(
                 GenericFunction,
-                Dict(
-                    :name=>$target_name,
-                    :lambda_list=>$(lambda_list),
-                    :methods=>[]
-                )
+                name = $target_name,
+                lambda_list = $(lambda_list),
+                methods = []
             )
         end
     )
@@ -72,17 +70,12 @@ macro defmethod(method)
         if ! @isdefined $(method.args[begin].args[begin])
             @defgeneric $(method.args[begin].args[begin])($(lambda_list)...)
         end
-        
-        create_method(
-            $(method.args[begin].args[begin]),
-            BaseStructure(
-                MultiMethod,
-                Dict(
-                    :generic_function=>$(method.args[begin].args[begin]),
-                    :specializers=>[$(specializers...)],
-                    :procedure=>(call_next_method, $(lambda_list...))->$(method.args[end])
-                )
-            )
+
+        new(
+            MultiMethod,
+            generic_function = $(method.args[begin].args[begin]),
+            specializers = [$(specializers...)],
+            procedure = (call_next_method, $(lambda_list...))->$(method.args[end])
         )
 
         $(method.args[begin].args[begin])

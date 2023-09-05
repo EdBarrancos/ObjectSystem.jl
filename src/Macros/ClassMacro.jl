@@ -52,17 +52,15 @@ macro defclass(name, superclasses, slots, options...)
     
     return esc(
         quote 
-            #$name = allocate_instance($metaclass)
-            $name = BaseStructure(
-                $metaclass,
-                Dict(
-                    :name => $target_name,
-                    :direct_superclasses => length($superclasses) > 0 ? $superclasses : [Object],
-                    :direct_slots => $direct_slots_definition,
-                    :class_precedence_list => length($superclasses) > 0 ? $superclasses : [Object], # TODO: Compute class_precedence_list
-                    :slots => $direct_slots_definition #TODO: Compute slots
-                )
+            $name = new(
+                $metaclass, 
+                name=$target_name, 
+                direct_superclasses=length($superclasses) > 0 ? $superclasses : [Object],
+                direct_slots=$direct_slots_definition,
+                class_precedence_list=length($superclasses) > 0 ? $superclasses : [Object], # TODO: Compute class_precedence_list
+                slots=$direct_slots_definition #TODO: Compute slots
             )
+
             pushfirst!(getfield($name, :slots)[:class_precedence_list], $name)
             $name
         end

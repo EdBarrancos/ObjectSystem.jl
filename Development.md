@@ -5,13 +5,12 @@ A Document to register features that I still need to implement, plus, if I need 
 ## What needs doing
 
 - [ ] 2.0 Macros
-  - [x] 2.0.1 defclass [Not complete yet]
-    - [ ] 2.0.1 Complete defclass
+  - [x] 2.0.1 defclass
   - [x] 2.0.2 defgeneric
   - [x] 2.0.3 defmethod
-  - [ ] 2.0.4 defbuiltin
+  - [x] 2.0.4 defbuiltin
 - [x] 2.1 Classes
-- [ ] 2.2 Instances
+- [x] 2.2 Instances
 - [ ] 2.3 Slot Access
 - [x] 2.4 Generic Functions and methods
 - [ ] 2.5 Pre-defined Generic Functions and Methods
@@ -20,17 +19,17 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] 2.8 Readers and Writers
 - [ ] 2.9 Generic Function Calls
 - [ ] 2.10 Multiple Dispatch
-- [ ] 2.11 Multiple Inheritance - Juliana Testes
+- [ ] 2.11 Multiple Inheritance
 - [ ] 2.12 Class Hierarchy
 - [ ] 2.13 Class Precedence List
 - [ ] 2.14 Built-In Classes
 - [ ] 2.15 Introspection
 - [ ] 2.16 Meta-Object Protocols
-- [ ] 2.16.1 Class Instantiation Protocol - Juliana
+- [x] 2.16.1 Class Instantiation Protocol
 - [ ] 2.16.2 The Compute Slots Protocol
 - [ ] 2.16.3 Slot Access Protocol
 - [ ] 2.16.4 Class Precedence List protocol
-- [ ] 2.17 Multiple Meta-Class Inheritance - Liliana Testes
+- [ ] 2.17 Multiple Meta-Class Inheritance
 - [ ] 2.18 Extensions
   - [ ] 2.18.1 Meta-Objects for slot definitions
   - [ ] 2.18.2 CLOS-like method combination for generic functions
@@ -40,3 +39,10 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] Make `is_class`
 - [x] Make `non-applicable-method` predefined
 - [x] If generic function does not exist when method created, auto generate it
+- [ ] Compute class precedence list
+- [ ] Compute slots
+- [x] Refactor so that defclass uses instantiation protocol
+- [x] Refactor so that defgeneric uses instantiation protocol
+- [x] Refactor so that defmethod uses instantiation protocol
+- [ ] Add support for unions
+- [ ] Add call previous method
