@@ -104,3 +104,7 @@ pushfirst!(getfield(BuiltInClass, :slots)[:class_precedence_list], BuiltInClass)
 function Base.getproperty(obj::BaseStructure, sym::Symbol)
     getfield(obj, :slots)[sym]
 end
+
+function Base.setproperty!(obj::BaseStructure, sym::Symbol, value)
+    getfield(obj, :slots)[sym] = value
+end

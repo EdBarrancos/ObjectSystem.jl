@@ -4,7 +4,7 @@ using Test
 @testset "Complex Number" begin
     @defclass(ComplexNumber, [], [real=1, imag])
 
-    @testset "Test class instantiation" begin
+    @testset "Test class instantiation and slot access" begin
         c1 = new(ComplexNumber)
 
         @test class_of(c1) === ComplexNumber
@@ -18,5 +18,12 @@ using Test
         c3 = new(ComplexNumber, real=2, imag=5)
         @test c3.real == 2
         @test c3.imag == 5
+
+        @testset "Slot Access" begin
+            c3.real += 2
+            c3.imag = 1
+            @test c3.real == 4
+            @test c3.imag == 1
+        end
     end
 end
