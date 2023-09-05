@@ -6,4 +6,5 @@ using Test
     include("test_defclass.jl")
     include("test_generic_methods.jl")
     include("test_defmacros_functions.jl")
+    include("test_complex_number.jl")
 end
