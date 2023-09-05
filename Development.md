@@ -4,14 +4,14 @@ A Document to register features that I still need to implement, plus, if I need 
 
 ## What needs doing
 
-- [ ] 2.0 Macros
+- [x] 2.0 Macros
   - [x] 2.0.1 defclass
   - [x] 2.0.2 defgeneric
   - [x] 2.0.3 defmethod
   - [x] 2.0.4 defbuiltin
 - [x] 2.1 Classes
 - [x] 2.2 Instances
-- [ ] 2.3 Slot Access
+- [x] 2.3 Slot Access
 - [x] 2.4 Generic Functions and methods
 - [ ] 2.5 Pre-defined Generic Functions and Methods
 - [ ] 2.6 MetaObjects
