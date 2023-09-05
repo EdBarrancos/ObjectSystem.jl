@@ -61,4 +61,22 @@ using Suppressor
         result = @capture_out show(c1)
         @test result == "2+5i"
     end
+
+    @testset "MetaObject testing" begin
+        @test ComplexNumber.direct_slots == [:real, :imag]
+        @test class_of(ComplexNumber) === Class
+        @test class_of(class_of(ComplexNumber)) === Class
+
+        @test Class.slots == [:name, :direct_superclasses, :class_precedence_list, :direct_slots, :slots]
+
+        @test ComplexNumber.name == :ComplexNumber
+        @test ComplexNumber.direct_superclasses == [Object]
+
+        @test class_of(add) === GenericFunction
+        @test GenericFunction.slots == [:name, :lambda_list, :methods]
+
+        @test class_of(add.methods[1]) === MultiMethod
+        @test MultiMethod.slots == [:specializers, :procedure, :generic_function]
+        @test add.methods[1].generic_function === add
+    end
 end
