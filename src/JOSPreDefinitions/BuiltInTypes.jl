@@ -1,4 +1,8 @@
-export _Exception, _TypeException, _Vector, _Pair, _Symbol
+export _Exception, _TypeException, _Symbol, _IO,
+    _Vector, _Pair, _NamedTuple,
+    _Int8, _Int16, _Int32, _Int64, _Int128,
+    _Bool, _Char, _String,
+    _Float16, _Float32, _Float64
 
 @defbuiltin _Exception(Exception)
 @defbuiltin _TypeException(Type{Exception})

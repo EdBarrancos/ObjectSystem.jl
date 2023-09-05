@@ -87,10 +87,10 @@ function Base.show(io::IO, t::Union{BaseStructure, Vector, Tuple})
     print_object(t, io)
 end
 
-function Base.show(io::IO, ::MIME"text/plain", t::Union{Slot})
+function Base.show(io::IO, ::MIME"text/plain", t::Union{SlotDefinition})
     print(io, t.name)
 end
 
-function Base.show(io::IO, t::Union{Slot})
+function Base.show(io::IO, t::Union{SlotDefinition})
     print(io, t.name)
 end

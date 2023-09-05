@@ -1,9 +1,11 @@
 using JuliaObjectSystem
 using Test
+using Suppressor
+
+@defclass(ComplexNumber, [], [real=1, imag])
+@defmethod print_object(c::ComplexNumber, io::_IO) = print(io, "$(c.real)$(c.imag < 0 ? "-" : "+")$(abs(c.imag))i")
 
 @testset "Complex Number" begin
-    @defclass(ComplexNumber, [], [real=1, imag])
-
     @testset "Test class instantiation and slot access" begin
         c1 = new(ComplexNumber)
 
@@ -25,5 +27,38 @@ using Test
             @test c3.real == 4
             @test c3.imag == 1
         end
+    end
+    
+    @defmethod add(c1::ComplexNumber, c2::ComplexNumber) = begin
+        return new(ComplexNumber, real=c1.real + c2.real, imag=c1.imag + c2.imag)
+    end
+
+    @testset "Test add complex number" begin
+        c1 = new(ComplexNumber, real=2, imag=5)
+
+        c2 = add(c1, c1)
+
+        @test class_of(c2) === ComplexNumber
+        @test c2.real == 4
+        @test c2.imag == 10
+    end
+
+    @testset "Print object" begin
+        result = @capture_out show(ComplexNumber)
+        @test result == "<Class ComplexNumber>"
+
+        result = @capture_out show(add)
+        @test result == "<GenericFunction add with 1 methods>"
+
+        result = @capture_out show(add.methods[1])
+        @test result == "<MultiMethod add(ComplexNumber, ComplexNumber)>"
+
+        ob1 = new(Object)
+        result = @capture_out show(ob1)
+        @test result == "<Object " * repr(UInt64(pointer_from_objref(ob1))) * ">"
+        
+        c1 = new(ComplexNumber, real=2, imag=5)
+        result = @capture_out show(c1)
+        @test result == "2+5i"
     end
 end
