@@ -46,3 +46,4 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] Refactor so that defmethod uses instantiation protocol
 - [ ] Add support for unions
 - [ ] Add call previous method
+- [ ] Improve how comparisons between slots is made so that I dont need to override hash
