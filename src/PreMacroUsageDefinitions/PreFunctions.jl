@@ -70,7 +70,7 @@ create_method(
                 queue = [class]
                 class_precedence_list = [class]
                 while !isempty(queue)
-                    target = pop!(queue)
+                    target = popfirst!(queue)
                     target_direct_superclasses = filter(
                         (superclass) -> !(superclass in class_precedence_list),
                         getfield(target, :slots)[:direct_superclasses])
