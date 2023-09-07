@@ -26,7 +26,7 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] 2.15 Introspection
 - [ ] 2.16 Meta-Object Protocols
 - [x] 2.16.1 Class Instantiation Protocol
-- [ ] 2.16.2 The Compute Slots Protocol
+- [x] 2.16.2 The Compute Slots Protocol
 - [ ] 2.16.3 Slot Access Protocol
 - [ ] 2.16.4 Class Precedence List protocol
 - [ ] 2.17 Multiple Meta-Class Inheritance
