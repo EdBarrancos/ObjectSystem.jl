@@ -1,4 +1,4 @@
-export non_applicable_method
+export non_applicable_method, compute_slots
 
 non_applicable_method = BaseStructure(
     GenericFunction,
@@ -25,3 +25,28 @@ create_method(
             :generic_function=>non_applicable_method
         )
     ))
+
+compute_slots = BaseStructure(
+    GenericFunction,
+    Dict(
+        :name=>:compute_slots,
+        :lambda_list=>[:class],
+        :methods=>[]
+    )
+)
+
+create_method(
+    compute_slots,
+    BaseStructure(
+        MultiMethod,
+        Dict(
+            :specializers=>[Class],
+            :procedure=>(call_next_method, class) -> begin
+                return vcat(
+                    map(
+                        (target_class) -> getfield(target_class, :slots)[:direct_slots], 
+                        getfield(class, :slots)[:class_precedence_list])...)
+            end
+        )
+    )
+)

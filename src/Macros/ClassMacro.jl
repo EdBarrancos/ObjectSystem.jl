@@ -62,6 +62,7 @@ macro defclass(name, superclasses, slots, options...)
             )
 
             pushfirst!(getfield($name, :slots)[:class_precedence_list], $name)
+            getfield($name, :slots)[:slots] = compute_slots($name)
             $name
         end
     )
