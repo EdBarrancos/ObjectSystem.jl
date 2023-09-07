@@ -21,14 +21,14 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] 2.10 Multiple Dispatch
 - [ ] 2.11 Multiple Inheritance
 - [ ] 2.12 Class Hierarchy
-- [ ] 2.13 Class Precedence List
+- [x] 2.13 Class Precedence List
 - [ ] 2.14 Built-In Classes
 - [ ] 2.15 Introspection
 - [ ] 2.16 Meta-Object Protocols
 - [x] 2.16.1 Class Instantiation Protocol
 - [x] 2.16.2 The Compute Slots Protocol
 - [ ] 2.16.3 Slot Access Protocol
-- [ ] 2.16.4 Class Precedence List protocol
+- [x] 2.16.4 Class Precedence List protocol
 - [ ] 2.17 Multiple Meta-Class Inheritance
 - [ ] 2.18 Extensions
   - [ ] 2.18.1 Meta-Objects for slot definitions
@@ -39,8 +39,8 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] Make `is_class`
 - [x] Make `non-applicable-method` predefined
 - [x] If generic function does not exist when method created, auto generate it
-- [ ] Compute class precedence list
-- [ ] Compute slots
+- [x] Compute class precedence list
+- [x] Compute slots
 - [x] Refactor so that defclass uses instantiation protocol
 - [x] Refactor so that defgeneric uses instantiation protocol
 - [x] Refactor so that defmethod uses instantiation protocol

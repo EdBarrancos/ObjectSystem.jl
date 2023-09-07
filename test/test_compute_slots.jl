@@ -7,4 +7,19 @@ using Test
 
         @test TestMetaclass.slots == Class.slots
     end
+
+    @testset "Collisions" begin
+        @defclass(Foo, [], [a=1, b=2])
+        @defclass(Bar, [], [b=3, c=4])
+        @defclass(FooBar, [Foo, Bar], [a=5, d=6])
+
+        @test class_slots(FooBar) == [:a, :d, :a, :b, :b, :c]
+
+        foobar1 = new(FooBar)
+
+        @test foobar1.a == 1
+        @test foobar1.b == 3
+        @test foobar1.c == 4
+        @test foobar1.d == 6
+    end
 end
