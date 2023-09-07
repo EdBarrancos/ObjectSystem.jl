@@ -1,20 +1,11 @@
 using JuliaObjectSystem
 
-@defclass(SimpleClass, [], [])
+a = SlotDefinition(:a, 1)
+b = SlotDefinition(:a, 2)
 
-new(Class, name=:SimpleClass, slots="HAPPY")
-
-
-f() = begin
-    let a = 1
-        return a
-    end
-end
-
-f()
-
-
-a = []
-b = []
-
-vcat([[], []])
+a == b
+isequal(a, b)
+isequal(b, a)
+unique([a, a])
+unique([a, b])
+allunique([a, a])

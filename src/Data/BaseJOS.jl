@@ -12,7 +12,7 @@ mutable struct SlotDefinition
 end
 
 function Base.hash(one::SlotDefinition)
-    return hash(one.name) + hash(one.initform)
+    return hash(one.name)
 end
 
 function Base.:(==)(one::SlotDefinition, another::SlotDefinition)
@@ -26,6 +26,7 @@ end
 function Base.:(==)(one::SlotDefinition, another::Symbol)
     return one.name == another
 end
+
 
 Top = BaseStructure(
     nothing,

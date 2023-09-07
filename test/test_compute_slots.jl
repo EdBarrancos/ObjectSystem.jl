@@ -23,3 +23,19 @@ using Test
         @test foobar1.d == 6
     end
 end
+
+@defclass(AvoidCollisionClass, [Class], [])
+
+@defmethod compute_slots(class::AvoidCollisionClass) = begin
+    slots = call_next_method()
+    duplicates = symdiff(slots, unique(slots))
+    return isempty(duplicates) ?
+        slots :
+        error("Multiple occurrences of slots: $(join(map(string, duplicates), ", "))")
+end
+
+@defclass(Foo, [], [a=1, b=2])
+@defclass(Bar, [], [b=3, c=4])
+        
+@test_throws Exception @defclass(FooBar, [Foo, Bar], [a=5, d=6], metaclass=AvoidCollisionClass)
+
