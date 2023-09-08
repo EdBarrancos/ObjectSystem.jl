@@ -15,9 +15,9 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] 2.4 Generic Functions and methods
 - [x] 2.5 Pre-defined Generic Functions and Methods
 - [x] 2.6 MetaObjects
-- [ ] 2.7 Class Options
+- [x] 2.7 Class Options
 - [ ] 2.8 Readers and Writers
-- [ ] 2.9 Generic Function Calls
+- [x] 2.9 Generic Function Calls
 - [ ] 2.10 Multiple Dispatch
 - [ ] 2.11 Multiple Inheritance
 - [ ] 2.12 Class Hierarchy
