@@ -7,4 +7,6 @@ using Test
     include("test_generic_methods.jl")
     include("test_defmacros_functions.jl")
     include("test_complex_number.jl")
+    include("test_compute_slots.jl")
+    include("test_class_precedence_list.jl")
 end
