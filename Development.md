@@ -18,7 +18,7 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] 2.7 Class Options
 - [x] 2.8 Readers and Writers
 - [x] 2.9 Generic Function Calls
-- [ ] 2.10 Multiple Dispatch
+- [x] 2.10 Multiple Dispatch
 - [ ] 2.11 Multiple Inheritance
 - [ ] 2.12 Class Hierarchy
 - [x] 2.13 Class Precedence List
