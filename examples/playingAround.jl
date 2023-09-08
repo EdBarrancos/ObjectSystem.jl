@@ -1,20 +1,18 @@
 using JuliaObjectSystem
 
-@defclass(SimpleClass, [], [])
+a = SlotDefinition(:a, 1)
+b = SlotDefinition(:a, 2)
+c = SlotDefinition(:b, 2)
 
-new(Class, name=:SimpleClass, slots="HAPPY")
+symdiff([a, b, c], unique([a, b, c]))
 
+symdiff([a], [b])
 
-f() = begin
-    let a = 1
-        return a
-    end
-end
+symdiff([1], [1, 1])
 
-f()
-
-
-a = []
-b = []
-
-vcat([[], []])
+a == b
+isequal(a, b)
+isequal(b, a)
+unique([a, a])
+unique([a, b])
+allunique([a, a])
