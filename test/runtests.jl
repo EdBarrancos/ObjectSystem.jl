@@ -9,4 +9,7 @@ using Test
     include("test_complex_number.jl")
     include("test_compute_slots.jl")
     include("test_class_precedence_list.jl")
+    include("test_built_in_classes.jl")
+    include("test_person.jl")
+    inlcude("test_instantiation_protocol.jl")
 end
