@@ -5,6 +5,8 @@ macro defclass(name, superclasses, slots, options...)
     
     #= Calculate Slots =#
     direct_slots_definition = []
+    readers = []
+    setters = []
     for slot in slots.args
         # TODO -> Reader and writer method
         if typeof(slot) != Expr
@@ -19,9 +21,17 @@ macro defclass(name, superclasses, slots, options...)
                     setfield!(new_slot, :name, option)
                 elseif option.head == :(=)
                     if option.args[begin] == :reader
-                        # TODO
+                        push!(readers, quote
+                            @defmethod $(option.args[end])(instance::$(name)) = begin
+                                getproperty(instance, $(QuoteNode(new_slot.name)))
+                            end
+                        end)
                     elseif option.args[begin] == :writer
-                        # TODO
+                        push!(setters, quote
+                            @defmethod $(option.args[end])(instance::$(name), v) = begin
+                                setproperty!(instance, $(QuoteNode(new_slot.name)), v)
+                            end
+                        end)
                     elseif option.args[begin] == :initform
                         setfield!(new_slot, :initform, option.args[end])
                     else
@@ -64,6 +74,16 @@ macro defclass(name, superclasses, slots, options...)
             pushfirst!(getfield($name, :slots)[:class_precedence_list], $name)
             getfield($name, :slots)[:class_precedence_list] = compute_cpl($name)
             getfield($name, :slots)[:slots] = compute_slots($name)
+
+            for reader in $(readers)
+                eval(reader) # Not the hero we want, but the hero we could come up with
+            end
+
+            for setter in $(setters)
+                println(setter)
+                eval(setter)
+            end
+            
             $name
         end
     )
