@@ -80,7 +80,6 @@ macro defclass(name, superclasses, slots, options...)
             end
 
             for setter in $(setters)
-                println(setter)
                 eval(setter)
             end
             
