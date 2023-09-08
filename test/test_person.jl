@@ -1,24 +1,38 @@
 using JuliaObjectSystem
 using Test
 
-@testset "Person" begin
-    @defclass(UndoableClass, [Class], [])
+@defclass(UndoableClass, [Class], [])
 
-    @test class_of(UndoableClass) === Class
-
-    @defclass(Person, [],
-    [
-        name="John",
-        [age, initform=40],
-        friend
-    ],
+@defclass(Person, [],
+    [[name, reader=get_name, writer=set_name!],
+    [age, reader=get_age, writer=set_age!, initform=0],
+    [friend, reader=get_friend, writer=set_friend!]],
     metaclass = UndoableClass)
+
+@testset "Person" begin
+    @test class_of(UndoableClass) === Class
 
     @test class_of(Person) === UndoableClass
     @test Person.direct_superclasses == [Object]
 
-    p1 = new(Person)
-    @test p1.name == "John"
-    @test p1.age == 40
-    @test ismissing(p1.friend)
+
+    @testset "Readers and Writers" begin
+        p1 = new(Person, name="John Travolta", friend="Me")
+
+        @testset "Readers" begin
+            @test get_name(p1) == "John Travolta"
+            @test get_friend(p1) == "Me"
+            @test get_age(p1) == 0
+        end
+
+        @testset "Setters" begin
+            set_name!(p1, "John Rambo")
+            @test get_name(p1) == "John Rambo"
+            @test p1.name == "John Rambo"
+
+            p1.name = "Fernando"
+            @test get_name(p1) == "Fernando"
+            @test p1.name == "Fernando"
+        end
+    end
 end

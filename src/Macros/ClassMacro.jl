@@ -23,13 +23,13 @@ macro defclass(name, superclasses, slots, options...)
                     if option.args[begin] == :reader
                         push!(readers, quote
                             @defmethod $(option.args[end])(instance::$(name)) = begin
-                                getfield(instance, :slots)[$(QuoteNode(new_slot.name))]
+                                getproperty(instance, $(QuoteNode(new_slot.name)))
                             end
                         end)
                     elseif option.args[begin] == :writer
                         push!(setters, quote
                             @defmethod $(option.args[end])(instance::$(name), v) = begin
-                                set(instance, :slots)[$(QuoteNode(new_slot.name))] = v
+                                setproperty!(instance, $(QuoteNode(new_slot.name)), v)
                             end
                         end)
                     elseif option.args[begin] == :initform
@@ -80,6 +80,7 @@ macro defclass(name, superclasses, slots, options...)
             end
 
             for setter in $(setters)
+                println(setter)
                 eval(setter)
             end
             
