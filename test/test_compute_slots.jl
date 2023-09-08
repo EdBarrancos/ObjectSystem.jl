@@ -53,5 +53,5 @@ end
 @defclass(Foo, [], [a=1, b=2])
 @defclass(Bar, [], [b=3, c=4])
 
-@defclass(FooBar, [Foo, Bar], [a=5, d=6], metaclass=AvoidCollisionClass)
+@test_throws Exception @defclass(FooBar, [Foo, Bar], [a=5, d=6], metaclass=AvoidCollisionClass)
 
