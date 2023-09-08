@@ -11,5 +11,6 @@ using Test
     include("test_class_precedence_list.jl")
     include("test_built_in_classes.jl")
     include("test_person.jl")
-    inlcude("test_instantiation_protocol.jl")
+    include("test_instantiation_protocol.jl")
+    include("test_multiple_dispatch.jl")
 end
