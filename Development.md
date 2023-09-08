@@ -16,13 +16,13 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] 2.5 Pre-defined Generic Functions and Methods
 - [x] 2.6 MetaObjects
 - [x] 2.7 Class Options
-- [ ] 2.8 Readers and Writers
+- [x] 2.8 Readers and Writers
 - [x] 2.9 Generic Function Calls
 - [ ] 2.10 Multiple Dispatch
 - [ ] 2.11 Multiple Inheritance
 - [ ] 2.12 Class Hierarchy
 - [x] 2.13 Class Precedence List
-- [ ] 2.14 Built-In Classes
+- [x] 2.14 Built-In Classes
 - [ ] 2.15 Introspection
 - [ ] 2.16 Meta-Object Protocols
 - [x] 2.16.1 Class Instantiation Protocol
