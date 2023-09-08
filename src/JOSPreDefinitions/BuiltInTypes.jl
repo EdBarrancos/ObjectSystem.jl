@@ -1,6 +1,6 @@
 export _Exception, _TypeException, _Symbol, _IO,
     _Vector, _Pair, _NamedTuple,
-    _Int8, _Int16, _Int32, _Int64, _Int128,
+    _Int8, _Int16, _Int32, _Int64, _Int128, _Int,
     _Bool, _Char, _String,
     _Float16, _Float32, _Float64
 
@@ -14,6 +14,8 @@ export _Exception, _TypeException, _Symbol, _IO,
 @defbuiltin _Int32(Int32)
 @defbuiltin _Int64(Int64)
 @defbuiltin _Int128(Int128)
+
+@defbuiltin _Int(Int)
 
 @defbuiltin _Bool(Bool)
 
