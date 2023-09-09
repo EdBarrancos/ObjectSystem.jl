@@ -18,7 +18,7 @@ using Suppressor
 @defmethod draw(shape::Line, device::Printer) = println("Drawing a Line on Printer")
 @defmethod draw(shape::Circle, device::Printer) = println("Drawing a Circle on Printer")
 
-@testset "Test Multiple Dispatch" begin
+@testset "Multiple Dispatch" begin
     let devices = [new(Screen), new(Printer)],
         shapes = [new(Line), new(Circle)]
         for device in devices
@@ -67,4 +67,11 @@ end
         "Drawing a Line on Printer\n" *
         "Changing printer ink color to black\n"
     ]
+end
+
+@testset "Class Hierarchy" begin
+    @test ColoredCircle.direct_superclasses == [ColorMixin, Circle]
+    @test ColorMixin.direct_superclasses == [Object]
+    @test Object.direct_superclasses == [Top]
+    @test Top.direct_superclasses == []
 end
