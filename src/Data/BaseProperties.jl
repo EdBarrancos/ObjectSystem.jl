@@ -36,6 +36,16 @@ class_cpl(class::BaseStructure) = begin
     return getfield(class, :slots)[:class_precedence_list]
 end
 
+generic_methods(generic::BaseStructure) = begin
+    assert_subclass_of(class, GenericFunction, ArgumentError)
+    return getfield(generic, :slots)[:methods]
+end
+
+method_specializers(method::BaseStructure) = begin
+    assert_subclass_of(class, MultiMethod, ArgumentError)
+    return getfield(generic, :slots)[:specializers]
+end
+
 is_class(instance::BaseStructure, targetClass::BaseStructure) = begin
     return class_of(instance) === targetClass
 end
