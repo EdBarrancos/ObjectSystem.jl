@@ -12,6 +12,5 @@ using Test
     include("test_built_in_classes.jl")
     include("test_person.jl")
     include("test_instantiation_protocol.jl")
-    include("test_multiple_dispatch.jl")
-    include("test_multiple_inheritance.jl")
+    include("test_device_shape.jl")
 end
