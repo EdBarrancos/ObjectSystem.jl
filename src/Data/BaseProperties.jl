@@ -1,5 +1,6 @@
 export class_of, assert_subclass_of, class_name, class_direct_slots, class_slots, 
-    class_direct_superclasses, class_cpl, check_class, check_polymorph, is_class
+    class_direct_superclasses, class_cpl, check_class, check_polymorph, is_class,
+    generic_methods, method_specializers
 
 class_of(instance::BaseStructure) = begin
     getfield(instance, :class_of_reference)
@@ -34,6 +35,16 @@ end
 class_cpl(class::BaseStructure) = begin
     assert_subclass_of(class, Class, ArgumentError)
     return getfield(class, :slots)[:class_precedence_list]
+end
+
+generic_methods(generic::BaseStructure) = begin
+    assert_subclass_of(generic, GenericFunction, ArgumentError)
+    return getfield(generic, :slots)[:methods]
+end
+
+method_specializers(method::BaseStructure) = begin
+    assert_subclass_of(method, MultiMethod, ArgumentError)
+    return getfield(method, :slots)[:specializers]
 end
 
 is_class(instance::BaseStructure, targetClass::BaseStructure) = begin
