@@ -19,11 +19,11 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] 2.8 Readers and Writers
 - [x] 2.9 Generic Function Calls
 - [x] 2.10 Multiple Dispatch
-- [ ] 2.11 Multiple Inheritance
-- [ ] 2.12 Class Hierarchy
+- [x] 2.11 Multiple Inheritance
+- [x] 2.12 Class Hierarchy
 - [x] 2.13 Class Precedence List
 - [x] 2.14 Built-In Classes
-- [ ] 2.15 Introspection
+- [x] 2.15 Introspection
 - [ ] 2.16 Meta-Object Protocols
 - [x] 2.16.1 Class Instantiation Protocol
 - [x] 2.16.2 The Compute Slots Protocol
