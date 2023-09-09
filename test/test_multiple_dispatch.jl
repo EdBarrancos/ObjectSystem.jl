@@ -18,12 +18,15 @@ using Suppressor
 @defmethod draw(shape::Line, device::Printer) = println("Drawing a Line on Printer")
 @defmethod draw(shape::Circle, device::Printer) = println("Drawing a Circle on Printer")
 
-let devices = [new(Screen), new(Printer)],
-    shapes = [new(Line), new(Circle)]
-    for device in devices
-        for shape in shapes
-            result = @capture_out draw(shape, device)
-            @test result == "Drawing a " * String(class_of(shape).name) * " on " * String(class_of(device).name) * "\n"
+@testset "Test Multiple Dispatch" begin
+    let devices = [new(Screen), new(Printer)],
+        shapes = [new(Line), new(Circle)]
+        for device in devices
+            for shape in shapes
+                result = @capture_out draw(shape, device)
+                @test result == "Drawing a " * String(class_of(shape).name) * " on " * String(class_of(device).name) * "\n"
+            end
         end
     end
 end
+

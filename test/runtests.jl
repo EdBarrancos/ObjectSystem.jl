@@ -13,4 +13,5 @@ using Test
     include("test_person.jl")
     include("test_instantiation_protocol.jl")
     include("test_multiple_dispatch.jl")
+    include("test_multiple_inheritance.jl")
 end
