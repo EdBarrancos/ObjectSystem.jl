@@ -75,3 +75,14 @@ end
     @test Object.direct_superclasses == [Top]
     @test Top.direct_superclasses == []
 end
+
+@testset "Introspection" begin
+    @test class_name(Circle) == :Circle
+    @test class_direct_slots(Circle) == [:center, :radius]
+    @test class_direct_slots(ColoredCircle) == []
+    @test class_slots(ColoredCircle) == [:color, :center, :radius]
+    @test class_direct_superclasses(ColoredCircle) == [ColorMixin, Circle]
+    @test class_cpl(ColoredCircle) == [ColoredCircle, ColorMixin, Circle, Object, Shape, Top]
+    @test length(generic_methods(draw)) == 5 
+    @test  method_specializers(generic_methods(draw)[1]) == [ColorMixin, Device]
+end
