@@ -2,8 +2,6 @@ using JuliaObjectSystem
 using Test
 using Suppressor
 
-@defclass(ColorMixin, [], [[color, reader=get_color, writer=set_color!]])
-
 @defclass(Shape, [], [])
 @defclass(Device, [], [])
 
@@ -20,6 +18,20 @@ using Suppressor
 @defmethod draw(shape::Line, device::Printer) = println("Drawing a Line on Printer")
 @defmethod draw(shape::Circle, device::Printer) = println("Drawing a Circle on Printer")
 
+@testset "Multiple Dispatch" begin
+    let devices = [new(Screen), new(Printer)],
+        shapes = [new(Line), new(Circle)]
+        for device in devices
+            for shape in shapes
+                result = @capture_out draw(shape, device)
+                @test result == "Drawing a " * String(class_of(shape).name) * " on " * String(class_of(device).name) * "\n"
+            end
+        end
+    end
+end
+
+@defclass(ColorMixin, [], [[color, reader=get_color, writer=set_color!]])
+
 @defmethod draw(s::ColorMixin, d::Device) = begin
     previous_color = get_device_color(d)
     set_device_color!(d, get_color(s))
@@ -31,8 +43,6 @@ end
 @defclass(ColoredCircle, [ColorMixin, Circle], [])
 @defclass(ColoredPrinter, [Printer],
     [[ink=:black, reader=get_device_color, writer=_set_device_color!]])
-
-
 
 @defmethod set_device_color!(d::ColoredPrinter, color) = begin
     println("Changing printer ink color to $color")
@@ -59,3 +69,9 @@ end
     ]
 end
 
+@testset "Class Hierarchy" begin
+    @test ColoredCircle.direct_superclasses == [ColorMixin, Circle]
+    @test ColorMixin.direct_superclasses == [Object]
+    @test Object.direct_superclasses == [Top]
+    @test Top.direct_superclasses == []
+end
