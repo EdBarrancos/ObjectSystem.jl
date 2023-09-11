@@ -53,3 +53,4 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] Replace `getfield(o, :class_of_reference)` with `class_of(o)`
 - [ ] Solve warning on running tests "Warning: Assignment to `Person` in soft scope is ambiguous because a global variable by the same name exists: `Person` will be treated as a new local. Disambiguate by using `local Person` to suppress this warning or `global Person` to assign to the existing global variable."
 - [ ] Update branch protection
+- [ ] Uniformize naming conventions
