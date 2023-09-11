@@ -76,6 +76,8 @@ end
     @test Top.direct_superclasses == []
 end
 
+generic_methods(draw)
+
 @testset "Introspection" begin
     @test class_name(Circle) == :Circle
     @test class_direct_slots(Circle) == [:center, :radius]

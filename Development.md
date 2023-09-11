@@ -24,12 +24,12 @@ A Document to register features that I still need to implement, plus, if I need 
 - [x] 2.13 Class Precedence List
 - [x] 2.14 Built-In Classes
 - [x] 2.15 Introspection
-- [ ] 2.16 Meta-Object Protocols
+- [x] 2.16 Meta-Object Protocols
 - [x] 2.16.1 Class Instantiation Protocol
 - [x] 2.16.2 The Compute Slots Protocol
-- [ ] 2.16.3 Slot Access Protocol
+- [x] 2.16.3 Slot Access Protocol
 - [x] 2.16.4 Class Precedence List protocol
-- [ ] 2.17 Multiple Meta-Class Inheritance
+- [x] 2.17 Multiple Meta-Class Inheritance
 - [ ] 2.18 Extensions
   - [ ] 2.18.1 Meta-Objects for slot definitions
   - [ ] 2.18.2 CLOS-like method combination for generic functions
@@ -47,3 +47,10 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] Add support for unions
 - [ ] Add call previous method
 - [ ] Improve how comparisons between slots is made so that I dont need to override hash
+- [ ] Check and Improve introspection assertions
+- [ ] Ability to call new without naming properties (in order?)
+- [ ] Create a Julia library?
+- [ ] Replace `getfield(o, :class_of_reference)` with `class_of(o)`
+- [ ] Solve warning on running tests "Warning: Assignment to `Person` in soft scope is ambiguous because a global variable by the same name exists: `Person` will be treated as a new local. Disambiguate by using `local Person` to suppress this warning or `global Person` to assign to the existing global variable."
+- [ ] Update branch protection
+- [ ] Uniformize naming conventions

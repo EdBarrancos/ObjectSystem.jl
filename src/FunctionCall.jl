@@ -1,7 +1,7 @@
 function (f::BaseStructure)(x...)
     check_for_polymorph(f, GenericFunction, ArgumentError)
 
-    if length(x) != length(getfield(f, :slots)[:lambda_list])
+    if length(x) != length(f.lambda_list)
         non_applicable_method(f, x)
     end
 
@@ -31,7 +31,7 @@ function apply_method(
     method = methods[target_method_index]
 
     let call_next_method = () -> apply_methods(generic_function, methods, target_method_index + 1, args)
-        return getfield(method, :slots)[:procedure](call_next_method, args...)
+        return method.procedure(call_next_method, args...)
     end
 end
 

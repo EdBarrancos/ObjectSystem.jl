@@ -7,44 +7,39 @@ class_of(instance::BaseStructure) = begin
 end
 
 assert_subclass_of(instance, targetClass, exception) = begin
-    if !(targetClass in getfield(class_of(instance), :slots)[:class_precedence_list])
-        throw(exception("Given " * String(getfield(targetClass, :slots)[:name]) * " is not a " * String(getfield(targetClass, :slots)[:name])))
+    if !(targetClass in instance.class_precedence_list)
+        throw(exception("Given " * String(targetClass.name) * " is not a " * String(targetClass.name)))
     end
 end
 
 class_name(class::BaseStructure) = begin
-    assert_subclass_of(class, Class, ArgumentError)
-    return getfield(class, :slots)[:name]
+    return class.name
 end
 
 class_direct_slots(class::BaseStructure) = begin
-    assert_subclass_of(class, Class, ArgumentError)
-    return getfield(class, :slots)[:direct_slots]
+    return class.direct_slots
 end
 
 class_slots(class::BaseStructure) = begin
-    assert_subclass_of(class, Class, ArgumentError)
-    return getfield(class, :slots)[:slots]
+    return class.slots
 end
 
 class_direct_superclasses(class::BaseStructure) = begin
-    assert_subclass_of(class, Class, ArgumentError)
-    return getfield(class, :slots)[:direct_superclasses]
+    return class.direct_superclasses
 end
 
 class_cpl(class::BaseStructure) = begin
-    assert_subclass_of(class, Class, ArgumentError)
-    return getfield(class, :slots)[:class_precedence_list]
+    return class.class_precedence_list
 end
 
 generic_methods(generic::BaseStructure) = begin
-    assert_subclass_of(generic, GenericFunction, ArgumentError)
-    return getfield(generic, :slots)[:methods]
+    check_polymorph(generic, GenericFunction, Exception)
+    return generic.methods
 end
 
 method_specializers(method::BaseStructure) = begin
-    assert_subclass_of(method, MultiMethod, ArgumentError)
-    return getfield(method, :slots)[:specializers]
+    check_polymorph(method, MultiMethod, Exception)
+    return method.specializers
 end
 
 is_class(instance::BaseStructure, targetClass::BaseStructure) = begin
