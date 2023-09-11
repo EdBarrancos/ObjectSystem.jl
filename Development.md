@@ -49,3 +49,4 @@ A Document to register features that I still need to implement, plus, if I need 
 - [ ] Improve how comparisons between slots is made so that I dont need to override hash
 - [ ] Check and Improve introspection assertions
 - [ ] Ability to call new without naming properties (in order?)
+- [ ] Create a Julia library?
