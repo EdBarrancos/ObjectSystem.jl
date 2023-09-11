@@ -11,6 +11,12 @@ mutable struct SlotDefinition
     initform::Any
 end
 
+mutable struct SlotValue
+    value::Any
+    getter::Any
+    setter::Any
+end
+
 function Base.hash(one::SlotDefinition)
     return hash(one.name)
 end
@@ -27,57 +33,62 @@ function Base.:(==)(one::SlotDefinition, another::Symbol)
     return one.name == another
 end
 
+function slot_value_factory(slot_name::Symbol, slot_value)
+    return SlotValue(
+        slot_value,
+        (instance) -> getfield(instance, :slots)[slot_name].value,
+        (instance, new_value) -> getfield(instance, :slots)[slot_name].value = new_value
+    )
+end
 
 Top = BaseStructure(
     nothing,
     Dict(
-        :name=>:Top,
-        :direct_superclasses=>[], 
-        :direct_slots=>[],
-        :class_precedence_list=>[],
-        :slots=>[],
+        :name=>slot_value_factory(:name, :Top),
+        :direct_superclasses=>slot_value_factory(:direct_superclasses, []), 
+        :direct_slots=>slot_value_factory(:direct_slots, []),
+        :class_precedence_list=>slot_value_factory(:class_precedence_list, []),
+        :slots=>slot_value_factory(:slots, []),
     )
 )
 
-pushfirst!(getfield(Top, :slots)[:class_precedence_list], Top)
+pushfirst!(getfield(Top, :slots)[:class_precedence_list].value, Top)
 
 Object = BaseStructure(
     nothing,
     Dict(
-        :name=>:Object,
-        :direct_superclasses=>[Top], 
-        :direct_slots=>[],
-        :class_precedence_list=>[Top],
-        :slots=>[]
+        :name=>slot_value_factory(:name, :Object),
+        :direct_superclasses=>slot_value_factory(:direct_superclasses, [Top]), 
+        :direct_slots=>slot_value_factory(:direct_slots, []),
+        :class_precedence_list=>slot_value_factory(:class_precedence_list, [Top]),
+        :slots=>slot_value_factory(:slots, []),
     )
 )
 
-pushfirst!(getfield(Object, :slots)[:class_precedence_list], Object)
+pushfirst!(getfield(Object, :slots)[:class_precedence_list].value, Object)
 
 Class = BaseStructure(
     nothing,
     Dict(
-        :name=>:Class,
-        :direct_superclasses=>[Object], 
-        :direct_slots=>[
-            SlotDefinition(:name, missing), 
+        :name => slot_value_factory(:name, :Class),
+        :direct_superclasses => slot_value_factory(:direct_superclasses, [Object]), 
+        :direct_slots => slot_value_factory(:direct_slots, [
+            SlotDefinition(:name, missing),
             SlotDefinition(:direct_superclasses, []), 
-            SlotDefinition(:class_precedence_list, []), 
+            SlotDefinition(:class_precedence_list, []),
             SlotDefinition(:direct_slots, []),
-            SlotDefinition(:slots, [])
-        ],
-        :class_precedence_list=>[Object, Top],
-        :slots=>[
-            SlotDefinition(:name, missing), 
+            SlotDefinition(:slots, [])]),
+        :class_precedence_list => slot_value_factory(:class_precedence_list, [Object, Top]),
+        :slots => slot_value_factory(:slots, [
+            SlotDefinition(:name, missing),
             SlotDefinition(:direct_superclasses, []), 
-            SlotDefinition(:class_precedence_list, []), 
+            SlotDefinition(:class_precedence_list, []),
             SlotDefinition(:direct_slots, []),
-            SlotDefinition(:slots, [])
-        ]
+            SlotDefinition(:slots, [])])
     )
 )
 
-pushfirst!(getfield(Class, :slots)[:class_precedence_list], Class)
+pushfirst!(getfield(Class, :slots)[:class_precedence_list].value, Class)
 
 setfield!(Class, :class_of_reference, Class)
 setfield!(Object, :class_of_reference, Class)
@@ -86,26 +97,25 @@ setfield!(Top, :class_of_reference, Class)
 BuiltInClass = BaseStructure(
     Class,
     Dict(
-        :name=>:BuiltInClass,
-        :direct_superclasses=>[Class], 
-        :direct_slots=>[],
-        :class_precedence_list=>[Class],
-        :slots=>[
-            SlotDefinition(:name, missing), 
+        :name => slot_value_factory(:name, :BuiltInClass),
+        :direct_superclasses => slot_value_factory(:direct_superclasses, [Class]), 
+        :direct_slots => slot_value_factory(:direct_slots, []),
+        :class_precedence_list => slot_value_factory(:class_precedence_list, [Class]),
+        :slots => slot_value_factory(:slots, [
+            SlotDefinition(:name, missing),
             SlotDefinition(:direct_superclasses, []), 
-            SlotDefinition(:class_precedence_list, []), 
+            SlotDefinition(:class_precedence_list, []),
             SlotDefinition(:direct_slots, []),
-            SlotDefinition(:slots, [])
-        ]
+            SlotDefinition(:slots, [])])
     )
 )
 
-pushfirst!(getfield(BuiltInClass, :slots)[:class_precedence_list], BuiltInClass)
+pushfirst!(getfield(BuiltInClass, :slots)[:class_precedence_list].value, BuiltInClass)
 
 function Base.getproperty(obj::BaseStructure, sym::Symbol)
-    getfield(obj, :slots)[sym]
+    getfield(obj, :slots)[sym].getter(obj)
 end
 
 function Base.setproperty!(obj::BaseStructure, sym::Symbol, value)
-    getfield(obj, :slots)[sym] = value
+    getfield(obj, :slots)[sym].setter(obj, value)
 end

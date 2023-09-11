@@ -22,15 +22,13 @@ macro defclass(name, superclasses, slots, options...)
                 elseif option.head == :(=)
                     if option.args[begin] == :reader
                         push!(readers, quote
-                            @defmethod $(option.args[end])(instance::$(name)) = begin
-                                getproperty(instance, $(QuoteNode(new_slot.name)))
-                            end
+                            local getter = compute_getter_and_setter($name, $(QuoteNode(new_slot.name)))[begin]
+                            @defmethod $(option.args[end])(instance::$(name)) = getter(instance)
                         end)
                     elseif option.args[begin] == :writer
                         push!(setters, quote
-                            @defmethod $(option.args[end])(instance::$(name), v) = begin
-                                setproperty!(instance, $(QuoteNode(new_slot.name)), v)
-                            end
+                            local setter = compute_getter_and_setter($name, $(QuoteNode(new_slot.name)))[end]
+                            @defmethod $(option.args[end])(instance::$(name), v) = setter(instance, v)
                         end)
                     elseif option.args[begin] == :initform
                         setfield!(new_slot, :initform, option.args[end])
@@ -71,9 +69,9 @@ macro defclass(name, superclasses, slots, options...)
                 slots = []
             )
 
-            pushfirst!(getfield($name, :slots)[:class_precedence_list], $name)
-            getfield($name, :slots)[:class_precedence_list] = compute_cpl($name)
-            getfield($name, :slots)[:slots] = compute_slots($name)
+            pushfirst!($name.class_precedence_list, $name)
+            $name.class_precedence_list = compute_cpl($name)
+            $name.slots = compute_slots($name)
 
             for reader in $(readers)
                 eval(reader) # Not the hero we want, but the hero we could come up with

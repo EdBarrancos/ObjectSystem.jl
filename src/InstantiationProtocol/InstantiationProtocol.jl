@@ -3,9 +3,9 @@ export new, allocate_instance, initialize
 allocate_instance = BaseStructure(
     GenericFunction,
     Dict(
-        :name=>:allocate_instance,
-        :lambda_list=>[:class],
-        :methods=>[]
+        :name => slot_value_factory(:name, :allocate_instance),
+        :lambda_list => slot_value_factory(:lambda_list, [:class]),
+        :methods => slot_value_factory(:methods, [])
     )
 )
 
@@ -14,14 +14,14 @@ create_method(
     BaseStructure(
         MultiMethod,
         Dict(
-            :specializers=>[Class],
-            :procedure=>(call_next_method, class) -> begin
+            :specializers => slot_value_factory(:specializers, [Class]),
+            :procedure => slot_value_factory(:procedure, (call_next_method, class) -> begin
                 return BaseStructure(
                     class,
                     Dict()
                 )
-            end,
-            :generic_function=>allocate_instance
+            end),
+            :generic_function => slot_value_factory(:generic_function, allocate_instance)
         )
     ))
 
@@ -29,9 +29,9 @@ create_method(
 initialize = BaseStructure(
     GenericFunction,
     Dict(
-        :name=>:initialize,
-        :lambda_list=>[:object, :initargs],
-        :methods=>[]
+        :name => slot_value_factory(:name, :initialize),
+        :lambda_list => slot_value_factory(:lambda_list, [:object, :initargs]),
+        :methods => slot_value_factory(:methods, [])
     )
 )
 
@@ -40,19 +40,24 @@ create_method(
     BaseStructure(
         MultiMethod,
         Dict(
-            :specializers=>[Object, Top],
-            :procedure=>(call_next_method, object, initargs) -> begin
+            :specializers => slot_value_factory(:specializers, [Object, Top]),
+            :procedure => slot_value_factory(:procedure, (call_next_method, object, initargs) -> begin
                 class_slots = class_of(object).slots
                 for slot in class_slots
                     target_value = slot.initform
                     if haskey(initargs, slot.name)
                         target_value = initargs[slot.name]
                     end
-            
-                    getfield(object, :slots)[slot.name] = target_value
+
+                    getter_setter =  compute_getter_and_setter(object, slot.name)
+                
+                    getfield(object, :slots)[slot.name] = SlotValue(
+                        target_value,
+                        (instance) -> getter_setter[begin](instance),
+                        (instance, value) -> getter_setter[end](instance, value))
                 end
-            end,
-            :generic_function=>initialize
+            end),
+            :generic_function => slot_value_factory(:generic_function, initialize)
         )
     ))
 
@@ -61,19 +66,24 @@ create_method(
     BaseStructure(
         MultiMethod,
         Dict(
-            :specializers=>[Class, Top],
-            :procedure=>(call_next_method, class, initargs) -> begin
+            :specializers => slot_value_factory(:specializers, [Class, Top]),
+            :procedure => slot_value_factory(:procedure, (call_next_method, class, initargs) -> begin
                 class_slots = class_of(class).slots
                 for slot in class_slots
                     target_value = slot.initform
                     if haskey(initargs, slot.name)
                         target_value = initargs[slot.name]
                     end
+
+                    getter_setter =  compute_getter_and_setter(class, slot.name)
                     
-                    getfield(class, :slots)[slot.name] = target_value
+                    getfield(class, :slots)[slot.name] = SlotValue(
+                        target_value,
+                        (instance) -> getter_setter[begin](instance),
+                        (instance, value) -> getter_setter[end](instance, value))
                 end
-            end,
-            :generic_function=>initialize
+            end),
+            :generic_function => slot_value_factory(:generic_function, initialize)
         )
     ))
 
@@ -82,16 +92,16 @@ create_method(
     BaseStructure(
         MultiMethod,
         Dict(
-            :specializers=>[MultiMethod, Top],
-            :procedure=>(call_next_method, method, initargs) -> begin
+            :specializers => slot_value_factory(:specializers, [MultiMethod, Top]),
+            :procedure => slot_value_factory(:procedure, (call_next_method, method, initargs) -> begin
                 call_next_method() # Class one
     
                 create_method(
                     initargs[:generic_function],
                     method
                 )
-            end,
-            :generic_function=>initialize
+            end),
+            :generic_function => slot_value_factory(:generic_function, initialize)
         )
     ))
 

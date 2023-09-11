@@ -3,44 +3,44 @@ export GenericFunction, MultiMethod, create_method
 GenericFunction = BaseStructure(
     Class,
     Dict(
-        :name=>:GenericFunction,
-        :direct_superclasses=>[Object], 
-        :direct_slots=>[
-            SlotDefinition(:name, missing), 
+        :name => slot_value_factory(:name, :GenericFunction),
+        :direct_superclasses => slot_value_factory(:direct_superclasses, [Object]), 
+        :direct_slots => slot_value_factory(:direct_slots, [
+            SlotDefinition(:name, missing),
             SlotDefinition(:lambda_list, missing), 
-            SlotDefinition(:methods, missing)
-        ],
-        :class_precedence_list=>[Object, Top],
-        :slots=>[
-            SlotDefinition(:name, missing), 
+            SlotDefinition(:methods, [])
+        ]),
+        :class_precedence_list => slot_value_factory(:class_precedence_list, [Object, Top]),
+        :slots => slot_value_factory(:slots, [
+            SlotDefinition(:name, missing),
             SlotDefinition(:lambda_list, missing), 
-            SlotDefinition(:methods, missing)
-        ]
+            SlotDefinition(:methods, [])
+        ])
     )
 )
 
-pushfirst!(getfield(GenericFunction, :slots)[:class_precedence_list], GenericFunction)
+pushfirst!(getfield(GenericFunction, :slots)[:class_precedence_list].value, GenericFunction)
 
 MultiMethod = BaseStructure(
     Class,
     Dict(
-        :name=>:MultiMethod,
-        :direct_superclasses=>[Object], 
-        :direct_slots=>[
-            SlotDefinition(:specializers, missing), 
-            SlotDefinition(:procedure, missing), 
+        :name => slot_value_factory(:name, :MultiMethod),
+        :direct_superclasses => slot_value_factory(:direct_superclasses, [Object]), 
+        :direct_slots => slot_value_factory(:direct_slots, [
+            SlotDefinition(:specializers, missing),
+            SlotDefinition(:procedure, missing),
             SlotDefinition(:generic_function, missing)
-        ],
-        :class_precedence_list=>[Object, Top],
-        :slots=>[
-            SlotDefinition(:specializers, missing), 
-            SlotDefinition(:procedure, missing), 
+        ]),
+        :class_precedence_list => slot_value_factory(:class_precedence_list, [Object, Top]),
+        :slots => slot_value_factory(:direct_slots, [
+            SlotDefinition(:specializers, missing),
+            SlotDefinition(:procedure, missing),
             SlotDefinition(:generic_function, missing)
-        ]
+        ])
     )
 )
 
-pushfirst!(getfield(MultiMethod, :slots)[:class_precedence_list], MultiMethod)
+pushfirst!(getfield(MultiMethod, :slots)[:class_precedence_list].value, MultiMethod)
 
 function create_method(
     parent_generic_function::BaseStructure, 
@@ -50,8 +50,8 @@ function create_method(
     check_for_polymorph(new_method, MultiMethod, ArgumentError)
 
     if !isequal(
-        length(getfield(parent_generic_function, :slots)[:lambda_list]),
-        length(getfield(new_method, :slots)[:specializers]))
+        length(parent_generic_function.lambda_list),
+        length(new_method.specializers))
 
         error("Method does not correspond to generic function's signature")
     end
