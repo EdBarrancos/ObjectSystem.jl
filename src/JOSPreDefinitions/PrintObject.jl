@@ -34,7 +34,7 @@ end
 @defmethod print_object(method::MultiMethod, io::_IO) = begin
     print(io,
         "<",
-        String(getfield(method, :class_of_reference).name),
+        String(class_of(method).name),
         " ",
         String(method.generic_function.name))
     

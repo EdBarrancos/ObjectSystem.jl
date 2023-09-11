@@ -108,12 +108,13 @@ create_method(
                     actual_slot.value = new_value
                 end
                 return (getter, setter)
-            end)
+            end),
+            :generic_function => slot_value_factory(:generic_function, compute_getter_and_setter)
         )
     )
 )
 
-create_method(
+#= create_method(
     compute_getter_and_setter,
     BaseStructure(
         MultiMethod,
@@ -126,7 +127,8 @@ create_method(
                     actual_slot.value = new_value
                 end
                 return (getter, setter)
-            end)
+            end),
+            :generic_function => slot_value_factory(:generic_functions, compute_getter_and_setter)
         )
     )
-)
+) =#

@@ -49,7 +49,7 @@ create_method(
                         target_value = initargs[slot.name]
                     end
 
-                    getter_setter =  compute_getter_and_setter(object, slot.name)
+                    getter_setter =  compute_getter_and_setter(class_of(object), slot.name)
                 
                     getfield(object, :slots)[slot.name] = SlotValue(
                         target_value,
@@ -75,7 +75,7 @@ create_method(
                         target_value = initargs[slot.name]
                     end
 
-                    getter_setter =  compute_getter_and_setter(class, slot.name)
+                    getter_setter =  compute_getter_and_setter(class_of(class), slot.name)
                     
                     getfield(class, :slots)[slot.name] = SlotValue(
                         target_value,
