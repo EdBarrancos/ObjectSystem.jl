@@ -14,4 +14,5 @@ using Test
     include("test_instantiation_protocol.jl")
     include("test_device_shape.jl")
     include("test_slot_access_protocol.jl")
+    include("test_multiple_meta_class_inheritance.jl")
 end
