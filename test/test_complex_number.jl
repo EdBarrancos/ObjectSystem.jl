@@ -1,6 +1,5 @@
-using JuliaObjectSystem
+using ObjectSystem
 using Test
-using Suppressor
 
 @defclass(ComplexNumber, [], [real=1, imag])
 @defmethod print_object(c::ComplexNumber, io::_IO) = print(io, "$(c.real)$(c.imag < 0 ? "-" : "+")$(abs(c.imag))i")

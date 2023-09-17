@@ -1,4 +1,4 @@
-module JuliaObjectSystem
+module ObjectSystem
     include("./Data/DataModule.jl")
     include("./PreMacroUsageDefinitions/PreMacroUsageDefinitionsModule.jl")
     include("./InstantiationProtocol/InstantiationProtocolModule.jl")

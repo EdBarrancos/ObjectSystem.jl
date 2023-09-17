@@ -1,4 +1,4 @@
-using JuliaObjectSystem
+using ObjectSystem
 using Test
 
 @defclass(UndoableClass, [Class], [])
