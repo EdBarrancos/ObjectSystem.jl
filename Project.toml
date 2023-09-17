@@ -1,4 +1,4 @@
-name = "JuliaObjectSystem"
+name = "ObjectSystem"
 uuid = "beb21ac1-5488-4e8e-a65a-eed5c6ff7e13"
 authors = ["Eduardo Barrancos <eduardobarrancos11488@gmail.com>"]
 version = "1.0.0"

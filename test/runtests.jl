@@ -1,4 +1,4 @@
-using JuliaObjectSystem
+using ObjectSystem
 using Test
 
 @testset "All Tests" begin
