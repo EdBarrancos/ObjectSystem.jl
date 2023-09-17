@@ -1,4 +1,4 @@
-using JuliaObjectSystem
+using ObjectSystem
 using Test
 
 @testset "Class Precedence List" begin

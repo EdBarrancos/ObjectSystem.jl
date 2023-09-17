@@ -1,4 +1,4 @@
-using JuliaObjectSystem
+using ObjectSystem
 using Test
 
 @testset "Basic Method calling" begin

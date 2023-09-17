@@ -1,5 +1,30 @@
-using JuliaObjectSystem
+using ObjectSystem
 using Test
+
+macro capture_out(block)
+    quote
+        if ccall(:jl_generating_output, Cint, ()) == 0
+            original_stdout = stdout
+            out_rd, out_wr = redirect_stdout()
+            out_reader = @async read(out_rd, String)
+        end
+
+        try
+            $(esc(block))
+        finally
+            if ccall(:jl_generating_output, Cint, ()) == 0
+                redirect_stdout(original_stdout)
+                close(out_wr)
+            end
+        end
+
+        if ccall(:jl_generating_output, Cint, ()) == 0
+            fetch(out_reader)
+        else
+            ""
+        end
+    end
+end
 
 @testset "All Tests" begin
     include("test_baseJOS.jl")
