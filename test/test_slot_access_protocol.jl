@@ -1,6 +1,5 @@
 using ObjectSystem
 using Test
-using Suppressor
 
 undo_trail = []
 

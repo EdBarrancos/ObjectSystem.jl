@@ -1,6 +1,5 @@
 using ObjectSystem
 using Test
-using Suppressor
 
 @testset "Built-In Classes" begin
     @testset "Print object" begin
