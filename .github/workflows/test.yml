@@ -1,0 +1,44 @@
+name: Run JuliaObjectSystem tests
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test:
+    name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }} - ${{ github.event_name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        version: 
+          - "1"   # Latest Release
+        arch: 
+          - x64
+          - x86
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        exclude:
+          # Test 32-bit only on Linux
+          - os: macOS-latest
+            arch: x86
+          - os: windows-latest
+            arch: x86
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: julia-actions/setup-julia@v1
+        with:
+          version: ${{ matrix.version }}
+          arch: ${{ matrix.arch }}
+      - uses: julia-actions/julia-buildpkg@latest
+      - uses: julia-actions/julia-runtest@latest
+        with:
+          annotate: true
+
