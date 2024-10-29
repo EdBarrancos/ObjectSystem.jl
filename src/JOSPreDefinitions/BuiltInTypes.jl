@@ -14,8 +14,6 @@ export _Exception, _TypeException, _IO,
 @defbuiltin _Int64(Int64)
 @defbuiltin _Int128(Int128)
 
-@defbuiltin _Int(Int)
-
 @defbuiltin _Bool(Bool)
 
 @defbuiltin _Char(Char)
