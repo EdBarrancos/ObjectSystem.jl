@@ -8,13 +8,17 @@ export _Exception, _TypeException, _IO,
 @defbuiltin _TypeException(Type{Exception})
 @defbuiltin _IO(IO)
 
+@defclass(_Int, [Top], [], metaclass=BuiltInClass)
+
 @defbuiltin _Int8(Int8)
 @defbuiltin _Int16(Int16)
-@defbuiltin _Int32(Int32)
-@defbuiltin _Int64(Int64)
 @defbuiltin _Int128(Int128)
 
-@defbuiltin _Int(Int)
+@defclass(_Int32, [_Int], [], metaclass=BuiltInClass)
+class_of(instance::Int32) = _Int32
+
+@defclass(_Int64, [_Int], [], metaclass=BuiltInClass)
+class_of(instance::Int64) = _Int64
 
 @defbuiltin _Bool(Bool)
 
