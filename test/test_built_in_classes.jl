@@ -3,8 +3,8 @@ using Test
 
 @testset "Built-In Classes" begin
     @testset "Print object" begin
-        result = @capture_out show(class_of(1))
-        @test result == "<BuiltInClass _Int>"
+        result = @capture_out show(class_of(Int64(1)))
+        @test result == "<BuiltInClass _Int64>"
 
         result = @capture_out show(class_of("Foo"))
         @test result == "<BuiltInClass _String>"
